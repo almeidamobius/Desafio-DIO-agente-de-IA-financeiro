@@ -2,54 +2,23 @@
 
 ## Dados Utilizados
 
-Descreva se usou os arquivos da pasta `data`, por exemplo:
+Para este projeto, estamos utilizando dados financeiros reais do **Yahoo Finance Dataset**, disponível no Hugging Face. O foco inicial é a análise da empresa **Bradesco (BBDC4)**.
 
-| Arquivo | Formato | Utilização no Agente |
-|---------|---------|---------------------|
-| `historico_atendimento.csv` | CSV | Contextualizar interações anteriores |
-| `perfil_investidor.json` | JSON | Personalizar recomendações |
-| `produtos_financeiros.json` | JSON | Sugerir produtos adequados ao perfil |
-| `transacoes.csv` | CSV | Analisar padrão de gastos do cliente |
+| Dataset | Formato | Descrição | Utilização no Agente |
+|---------|---------|-----------|---------------------|
+| `stock_prices` | Parquet | Preços históricos (open, high, low, close, volume) | Análise de tendências, gráficos de preços, volatilidade |
+| `stock_profile` | Parquet | Perfil da empresa (endereço, setor, funcionários) | Contexto da empresa, resumo executivo |
+| `stock_statement` | Parquet | Demonstrações financeiras (DRE, balanço, fluxo de caixa) | Análise financeira, indicadores, valuation |
+| `stock_officers` | Parquet | Executivos (nome, cargo, remuneração) | Governança, perfil de liderança |
+| `stock_news` | Parquet | Notícias e artigos sobre a empresa | Sentimento de mercado, eventos relevantes |
+| `stock_dividend_events` | Parquet | Histórico de pagamento de dividendos | Análise de dividend yield, consistência |
 
-> [!TIP]
-> **Quer um dataset mais robusto?** Você pode utilizar datasets públicos do [Hugging Face](https://huggingface.co/datasets) relacionados a finanças, desde que sejam adequados ao contexto do desafio.
+### Fonte dos Dados
 
----
+Todos os dados são provenientes do dataset público:
+- **Repositório:** [defeatbeta/yahoo-finance-data](https://huggingface.co/datasets/defeatbeta/yahoo-finance-data)
+- **Fonte Original:** Yahoo! Finance, Nasdaq!, U.S. Department of the Treasury
+- **Formato:** Parquet
+- **Atualização:** Regular, com registro em `spec.json`
 
-## Adaptações nos Dados
-
-> Você modificou ou expandiu os dados mockados? Descreva aqui.
-
-[Sua descrição aqui]
-
----
-
-## Estratégia de Integração
-
-### Como os dados são carregados?
-> Descreva como seu agente acessa a base de conhecimento.
-
-[ex: Os JSON/CSV são carregados no início da sessão e incluídos no contexto do prompt]
-
-### Como os dados são usados no prompt?
-> Os dados vão no system prompt? São consultados dinamicamente?
-
-[Sua descrição aqui]
-
----
-
-## Exemplo de Contexto Montado
-
-> Mostre um exemplo de como os dados são formatados para o agente.
-
-```
-Dados do Cliente:
-- Nome: João Silva
-- Perfil: Moderado
-- Saldo disponível: R$ 5.000
-
-Últimas transações:
-- 01/11: Supermercado - R$ 450
-- 03/11: Streaming - R$ 55
-...
-```
+### Estrutura Local dos Dados
