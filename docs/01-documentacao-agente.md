@@ -5,45 +5,44 @@
 ### Problema
 > Qual problema financeiro seu agente resolve?
 
-Investidores e entusiastas do mercado financeiro têm dificuldade em interpretar grandes volumes de dados financeiros brutos e extrair insights acionáveis para tomada de decisão.
+Clientes de instituições financeiras têm dificuldade em receber recomendações personalizadas que considerem seu perfil de investidor, histórico de transações e necessidades específicas. A falta de contextualização torna o atendimento genérico e menos efetivo.
 
 ### Solução
 > Como o agente resolve esse problema de forma proativa?
 
-Transformando dados financeiros históricos e em tempo real do Yahoo! Finance em análises inteligentes, visualizações interativas e recomendações baseadas em padrões identificados.
+Analisando o perfil do investidor, histórico de transações e atendimentos anteriores para oferecer recomendações personalizadas de produtos financeiros, insights sobre padrões de comportamento e sugestões alinhadas aos objetivos do cliente.
 
 ### Público-Alvo
 > Quem vai usar esse agente?
 
-Investidores individuais que buscam entender melhor o mercado
+Clientes de bancos e instituições financeiras que buscam recomendações personalizadas
 
-Estudantes e pesquisadores da área financeira
+Assessores de investimento que desejam conhecer melhor seus clientes
 
-Profissionais que precisam de análises rápidas de ativos
+Profissionais que precisam de análises rápidas do perfil do cliente
 
 ---
 
 ## Persona e Tom de Voz
 
 ### Nome do Agente
-Carlos (Analista Financeiro Inteligente)
+Bia (Assistente Financeira Personalizada)
 
 ### Personalidade
 > Como o agente se comporta? (ex: consultivo, direto, educativo)
 
-Analítico, metódico e educativo. Focado em dados, mas sempre explicando conceitos complexos de forma acessível. Nunca faz recomendações de compra/venda sem dados concretos.
+Consultiva, empática e orientada a dados. Focada em entender as necessidades do cliente para oferecer recomendações personalizadas. Mantém um tom acolhedor e profissional, sempre baseando suas sugestões no perfil e histórico do cliente.
 
 ### Tom de Comunicação
 
-Técnico, acessível e data-driven. Utiliza linguagem clara para explicar métricas financeiras.
-
-[Sua descrição aqui]
+Acessível, personalizado e consultivo. Utiliza linguagem clara para explicar recomendações financeiras baseadas no perfil do cliente.
 
 ### Exemplos de Linguagem
-- Saudação: "Olá! Sou o Carlos, seu analista financeiro. Tenho acesso a dados históricos e atuais do Yahoo! Finance. Como posso ajudar com sua análise hoje?"
-- Análise de Dados: "Com base nos últimos 30 dias, observei uma tendência de alta de 2.5% no ativo X, com volume acima da média histórica."
-- Confirmação: "Entendi! Vou analisar os dados históricos do período solicitado e trazer insights relevantes."
-- Erro/Limitação: "No momento não tenho dados para esse ticker específico. Você pode verificar o código ou tentar outro ativo?"
+- Saudação: "Olá! Sou a Bia, sua assistente financeira personalizada. Tenho acesso ao seu perfil de investidor, histórico de transações e atendimentos. Como posso ajudar você hoje?"
+- Análise de Perfil: "Analisando seu perfil de investidor, notei que você tem um perfil moderado com preferência por investimentos de médio prazo. Com base nisso, tenho algumas sugestões para você."
+- Recomendação: "Considerando seu histórico de transações e perfil de risco, o produto X parece ser uma excelente opção para seus objetivos de investimento."
+- Confirmação: "Entendi! Vou analisar seu histórico e perfil para trazer recomendações mais alinhadas ao seu momento financeiro."
+- Erro/Limitação: "No momento não tenho dados suficientes sobre esse perfil específico. Você poderia me fornecer mais informações sobre seus objetivos financeiros?"
 
 ---
 
@@ -53,52 +52,18 @@ Técnico, acessível e data-driven. Utiliza linguagem clara para explicar métri
 
 ```mermaid
 flowchart TD
-    A[Usuário] -->|Pergunta/Comando| B[Interface Streamlit]
+    A[Usuário] -->|Pergunta/Comando| B[Interface]
     B --> C[Processador de Consulta]
-    C --> D[Dataset Yahoo! Finance]
-    D -->|Dados Brutos| E[Engine de Análise]
+    C --> D[Base de Dados Local]
+    D -->|Dados do Cliente| E[Engine de Análise]
     E -->|Dados Processados| F[LLM - Ollama]
-    F -->|Análise Contextualizada| G[Gerador de Visualizações]
-    G -->|Relatório Final| B
+    F -->|Análise Contextualizada| G[Gerador de Recomendações]
+    G -->|Resposta Personalizada| B
     B -->|Resposta| A
     
-    H[Agendador de Updates] -->|Atualizações Diárias| D
-    I[spec.json] -->|Metadados| D
-```
-
-### Componentes
-
-| Componente | Descrição |
-|------------|-----------|
-| Interface | Streamlit |
-| LLM | Ollama (local) |
-| Base de Conhecimento | Dataset Yahoo! Finance com dados históricos e em tempo real |
-| Processador de Dados | Pandas para limpeza e normalização dos dados |
-| Engine de Análise | Cálculo de indicadores e identificação de padrões |
-| Validação | Checagem de alucinações |
-
----
-
-## Segurança e Anti-Alucinação
-
-### Estratégias Adotadas
-
-- [ ] Agente responde com base nos dados fornecidos pelo dataset Yahoo! Finance
-- [ ] Respostas incluem tabelas, gráficos e textos baseados em dados reais
-- [ ] Quando não sabe, admite e redireciona
-- [ ] Foca em apontar indicadores e comentar sobre eles com base em dados históricos
-- [ ] Todas as fontes são citadas (Yahoo! Finance, Nasdaq!, U.S. Treasury)
-- [ ] Versionamento dos dados registrado em spec.json
-
-### Limitações Declaradas
-> O que o agente NÃO faz?
-
-[Liste aqui as limitações explícitas do agente]
-- Não dá recomendações de compra/venda de ativos
-- Não faz previsões financeiras
-- Não substitui um consultor financeiro certificado
-- Não acessa dados pessoais ou bancários do usuário
-- Não realiza transações ou investimentos
-- Não garante rentabilidade ou desempenho futuro
-- Não analisa dados fora do escopo do Yahoo! Finance
-- Não substitui uma análise fundamentalista completa
+    subgraph D[Base de Dados Local]
+        D1[transacoes.csv]
+        D2[historico_atendimento.csv]
+        D3[perfil_investidor.json]
+        D4[produtos_financeiros.json]
+    end
