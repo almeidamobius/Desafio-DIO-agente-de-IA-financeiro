@@ -2,64 +2,20 @@
 
 ## Dados Utilizados
 
-Para este projeto, estamos utilizando dados financeiros reais do **Yahoo Finance Dataset**, disponível no Hugging Face. O foco inicial é a análise da empresa **Bradesco (BBDC4)**.
+Para este projeto, estamos utilizando dados mockados disponíveis na pasta `data/` para alimentar nosso agente financeiro. O foco inicial é a análise personalizada do perfil e histórico do cliente.
 
-| Dataset | Formato | Descrição | Utilização no Agente |
+| Arquivo | Formato | Descrição | Utilização no Agente |
 |---------|---------|-----------|---------------------|
-| `stock_prices` | Parquet | Preços históricos (open, high, low, close, volume) | Análise de tendências, gráficos de preços, volatilidade |
-| `stock_profile` | Parquet | Perfil da empresa (endereço, setor, funcionários) | Contexto da empresa, resumo executivo |
-| `stock_statement` | Parquet | Demonstrações financeiras (DRE, balanço, fluxo de caixa) | Análise financeira, indicadores, valuation |
-| `stock_officers` | Parquet | Executivos (nome, cargo, remuneração) | Governança, perfil de liderança |
-| `stock_news` | Parquet | Notícias e artigos sobre a empresa | Sentimento de mercado, eventos relevantes |
-| `stock_dividend_events` | Parquet | Histórico de pagamento de dividendos | Análise de dividend yield, consistência |
+| `transacoes.csv` | CSV | Histórico de transações do cliente | Análise de padrões de gastos, frequência de uso, categorização de despesas |
+| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores | Identificação de demandas recorrentes, preferências de canais, análise de satisfação |
+| `perfil_investidor.json` | JSON | Perfil e preferências do cliente | Definição do perfil de risco, objetivos financeiros, recomendações personalizadas |
+| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis | Catálogo de ofertas, matching com perfil do cliente, sugestão de produtos |
 
 ### Fonte dos Dados
 
-Todos os dados são provenientes do dataset público:
-- **Repositório:** [defeatbeta/yahoo-finance-data](https://huggingface.co/datasets/defeatbeta/yahoo-finance-data)
-- **Fonte Original:** Yahoo! Finance, Nasdaq!, U.S. Department of the Treasury
-- **Formato:** Parquet
-- **Atualização:** Regular, com registro em `spec.json`
+Todos os dados são mockados (fictícios) e armazenados localmente na estrutura do projeto:
+- **Diretório:** `data/`
+- **Formato:** CSV e JSON
+- **Criação:** Dados gerados para fins de demonstração e testes
 
 ### Estrutura Local dos Dados
-
-
----
-
-## Adaptações nos Dados
-
-### Mudanças em relação ao projeto original
-
-| Aspecto | Original | Adaptação |
-|---------|----------|-----------|
-| **Fonte de dados** | Dados mockados (fictícios) | Dados reais do Yahoo Finance |
-| **Formato** | CSV e JSON | Parquet (formato otimizado) |
-| **Escopo** | Dados do cliente (gastos, perfil) | Dados de mercado (ações, finanças) |
-| **Atualização** | Estático | Dinâmico (atualizado via script) |
-
-### Por que essas mudanças?
-
-1. **Dados Reais:** O projeto ganha complexidade e relevância ao usar dados reais de mercado
-2. **Formato Parquet:** Mais eficiente para grandes volumes de dados
-3. **Escalabilidade:** Possibilidade de adicionar mais empresas e indicadores
-4. **Aprendizado:** Uso de ferramentas reais (DuckDB, Hugging Face)
-
----
-
-## Estratégia de Integração
-
-### Como os dados são carregados?
-
-Os dados são carregados usando **DuckDB** para consultas SQL diretamente nos arquivos Parquet:
-
-```python
-# Exemplo de carregamento
-import duckdb
-
-conn = duckdb.connect()
-query = """
-    SELECT * FROM 'data/raw/yahoo_finance/stock_prices_BBDC4.parquet'
-    ORDER BY report_date DESC
-    LIMIT 10
-"""
-df = conn.execute(query).df()
