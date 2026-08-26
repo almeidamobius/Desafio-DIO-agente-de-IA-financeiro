@@ -42,7 +42,7 @@ pip install -r requirements.txt
 streamlit run src/app.py
 
 ```
-##Estrutura do projeto
+## Estrutura do projeto
 ```
 lab-agente-financeiro/
 ├── data/                    # Dados mockados
@@ -58,7 +58,7 @@ lab-agente-financeiro/
 └── README.md
 
 ```
-##Dados Utilizados
+## Dados Utilizados
 - historico_atendimento.csv
 - perfil_investidor.json
 - produtos_financeiros.json
