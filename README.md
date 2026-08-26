@@ -58,5 +58,8 @@ lab-agente-financeiro/
 └── README.md
 
 ```
-Dados Utilizados
-
+##Dados Utilizados
+- historico_atendimento.csv
+- perfil_investidor.json
+- produtos_financeiros.json
+- transacoes.csv
